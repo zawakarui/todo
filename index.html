@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO App</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="app-header">
+        <div class="container">
+            <h1 class="app-title">TODO App</h1>
+            <div class="task-stats">
+                <span class="stat-item">
+                    <span class="stat-label">Total:</span>
+                    <span id="stat-total" class="stat-value">0</span>
+                </span>
+                <span class="stat-item">
+                    <span class="stat-label">Active:</span>
+                    <span id="stat-active" class="stat-value">0</span>
+                </span>
+                <span class="stat-item">
+                    <span class="stat-label">Completed:</span>
+                    <span id="stat-completed" class="stat-value">0</span>
+                </span>
+            </div>
+            <button id="btn-add-task" class="btn btn-primary">+ Add Task</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+        <div class="container">
+            <!-- Filter/Control Bar -->
+            <div class="control-bar">
+                <div class="filter-group">
+                    <label>Status:</label>
+                    <div class="btn-group">
+                        <button class="btn btn-filter active" data-filter="all">All</button>
+                        <button class="btn btn-filter" data-filter="active">Active</button>
+                        <button class="btn btn-filter" data-filter="completed">Completed</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-category">Category:</label>
+                    <select id="filter-category" class="filter-select">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="filter-priority">Priority:</label>
+                    <select id="filter-priority" class="filter-select">
+                        <option value="all">All Priorities</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="sort-by">Sort By:</label>
+                    <select id="sort-by" class="filter-select">
+                        <option value="created">Created Date</option>
+                        <option value="dueDate">Due Date</option>
+                        <option value="priority">Priority</option>
+                        <option value="title">Title</option>
+                    </select>
+                </div>
+
+                <div class="search-group">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search tasks...">
+                </div>
+            </div>
+
+            <!-- Task List -->
+            <div id="task-list" class="task-list">
+                <!-- Tasks will be rendered here -->
+                <div id="empty-state" class="empty-state">
+                    <p>No tasks yet. Click "Add Task" to get started!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container">
+            <div class="footer-actions">
+                <button id="btn-export" class="btn btn-secondary">Export Data</button>
+                <button id="btn-import" class="btn btn-secondary">Import Data</button>
+                <button id="btn-clear-completed" class="btn btn-secondary">Clear Completed</button>
+            </div>
+            <input type="file" id="import-file" accept=".json" style="display: none;">
+        </div>
+    </footer>
+
+    <!-- Modal for Add/Edit Task -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Add Task</h2>
+                <button id="modal-close" class="btn-close">&times;</button>
+            </div>
+            <form id="task-form" class="task-form">
+                <div class="form-group">
+                    <label for="task-title">Title <span class="required">*</span></label>
+                    <input type="text" id="task-title" name="title" required maxlength="200" placeholder="Enter task title">
+                </div>
+
+                <div class="form-group">
+                    <label for="task-description">Description</label>
+                    <textarea id="task-description" name="description" rows="3" maxlength="500" placeholder="Enter task description (optional)"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-category">Category</label>
+                        <div class="category-input-group">
+                            <select id="task-category" name="category">
+                                <option value="general">General</option>
+                            </select>
+                            <button type="button" id="btn-add-category" class="btn btn-small">+</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-priority">Priority</label>
+                        <select id="task-priority" name="priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="task-due-date">Due Date</label>
+                    <input type="date" id="task-due-date" name="dueDate">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" id="btn-cancel" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" id="btn-submit" class="btn btn-primary">Add Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <!-- JavaScript Files -->
+    <script src="js/storage.js"></script>
+    <script src="js/task.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
